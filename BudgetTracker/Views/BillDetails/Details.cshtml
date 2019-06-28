@@ -1,0 +1,41 @@
+﻿@model BudgetTracker.Models.BillDetailsViewModels.BillDetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+<h2>Details</h2>
+<div>
+    <h4>BillDetailsModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+         <dt>
+            @Html.DisplayNameFor(model => model.BillDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BillDetailId"><span class="glyphicon glyphicon-edit"></span></a> |
+    <a asp-action="Index"><span class="glyphicon glyphicon-home"></span></a>
+</div>

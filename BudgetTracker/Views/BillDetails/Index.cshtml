@@ -1,0 +1,103 @@
+﻿@model IEnumerable<BudgetTracker.Models.BillDetailsViewModels.BillDetailsModel>
+@{
+    ViewData["Title"] = "Index";
+}
+  IEnumerable<ExpenseDetailsModel> ExpenseDetails = ViewData["ExpenseDetails"] as IEnumerable<ExpenseDetailsModel>;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+<script type="text/javascript">
+    window.onload = function () {
+        (function drawCanvas() {
+            var ctxP = document.getElementById("pieChart").getContext('2d');
+            var myPieChart = new Chart(ctxP, {
+                type: 'pie',
+                data: {
+                    labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+                    datasets: [{
+                        data: [300, 50, 100, 40, 120],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        })();
+        }
+    </script>
+<nav class="navbar navbar-inverse" style="margin-bottom: 0;border-radius: 0;">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<p>
+    <a asp-action="Transactions"><span class="glyphicon glyphicon-plus"> Add Expense</span></a>
+</p>
+
+<div class="container-fluid text-center">
+    <div class="row content" style="height: 450px;">
+        <div class="col-sm-4 sidenav" style="padding-top: 20px;background-color: #f1f1f1;height: 100%;">
+            <canvas id="pieChart" style="max-width: 1000px;"></canvas>
+        </div>
+        <div class="col-sm-8 text-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="display:none">
+                            @Html.DisplayNameFor(model =>model.BillId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BillDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BillType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.Notes)
+                        </th>*@
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td visible="false" style="display:none">
+                                @Html.DisplayFor(modelItem => item.BillId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BillDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BillType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.Notes)
+                            </td>*@
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.BillDetailId">Edit <span class="glyphicon glyphicon-edit"></span></a> |
+                                <a asp-action="Details" asp-route-id="@item.BillDetailId">Details <span class="glyphicon glyphicon-option-vertical"></span></a> |
+                                <a asp-action="Delete" asp-route-id="@item.BillDetailId">Delete <span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
